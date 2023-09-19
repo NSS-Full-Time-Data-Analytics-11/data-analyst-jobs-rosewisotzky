@@ -122,15 +122,15 @@ FROM data_analyst_jobs;
 -- BONUS: You want to understand which jobs requiring SQL are hard to fill. 
 --Find the number of jobs by industry (domain) that require SQL and have been posted longer than 3 weeks.
 
-SELECT domain, 
-	COUNT(CASE WHEN days_since_posting > 21 THEN 1 END) AS jobs_older_than_three_weeks
+SELECT domain,
+	COUNT(CASE WHEN days_since_posting > 21 AND skill ILIKE '%SQL%'  THEN 1 END) AS sql_jobs_older_than_three_weeks
 FROM data_analyst_jobs
 GROUP BY domain;
 
 -- Disregard any postings where the domain is NULL.
 
 SELECT domain, 
-	COUNT(CASE WHEN days_since_posting > 21 THEN 1 END) AS jobs_older_than_three_weeks
+	COUNT(CASE WHEN days_since_posting > 21 AND skill ILIKE '%SQL%' THEN 1 END) AS sql_jobs_older_than_three_weeks
 FROM data_analyst_jobs
 WHERE domain IS NOT NULL
 GROUP BY domain;
@@ -138,7 +138,7 @@ GROUP BY domain;
 -- Order your results so that the domain with the greatest number of hard to fill jobs is at the top.
 
 SELECT domain, 
-	COUNT(CASE WHEN days_since_posting > 21 THEN 1 END) AS jobs_older_than_three_weeks
+	COUNT(CASE WHEN days_since_posting > 21 AND skill ILIKE '%SQL%' THEN 1 END) AS sql_jobs_older_than_three_weeks
 FROM data_analyst_jobs
 WHERE domain IS NOT NULL
 GROUP BY domain
@@ -147,7 +147,7 @@ ORDER BY jobs_older_than_three_weeks DESC;
 -- Which three industries are in the top 4 on this list? A: Consulting and Business Services, Health Care, Internet and Software, Banks and Financial Services
 
 SELECT domain, 
-	COUNT(CASE WHEN days_since_posting > 21 THEN 1 END) AS jobs_older_than_three_weeks
+	COUNT(CASE WHEN days_since_posting > 21 AND skill ILIKE '%SQL%' THEN 1 END) AS sql_jobs_older_than_three_weeks
 FROM data_analyst_jobs
 WHERE domain IS NOT NULL
 GROUP BY domain
