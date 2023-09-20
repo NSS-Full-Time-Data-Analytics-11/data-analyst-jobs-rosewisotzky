@@ -38,6 +38,15 @@ WHERE location IS NOT NULL
 GROUP BY location
 ORDER BY avg_rating DESC;
 
+SELECT location AS state, AVG(star_rating) AS avg_rating
+FROM data_analyst_jobs
+WHERE location IS NOT NULL
+	AND star_rating IS NOT NULL
+GROUP BY location
+ORDER BY avg_rating DESC;
+
+
+
 --Using the CASE statement instead of WHERE we see that the nulls show up. Why? Is this averaging only when the star rating isn't null and the location isn't null but showing those anyhow since we aren't refining what we display AFTER we grab it? Does CASE WHEN in aggregation in this scenario only pull the star rating and location IS NOT NULL before performing the average?
 
 SELECT location AS state, 
@@ -151,10 +160,9 @@ SELECT domain,
 FROM data_analyst_jobs
 WHERE domain IS NOT NULL
 GROUP BY domain
-ORDER BY jobs_older_than_three_weeks DESC
+ORDER BY sql_jobs_older_than_three_weeks DESC
 LIMIT 4;
 
 --How many jobs have been listed for more than 3 weeks for each of the top 4?
 
---110, 96, 84, 77
-
+--62, 61, 57, 52
